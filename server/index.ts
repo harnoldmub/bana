@@ -10,16 +10,16 @@ app.use(express.json());
 const taleRecords = [
   {
     id: "tale-001",
-    title: "La petite graine qui voulait lire",
-    slug: "la-petite-graine-qui-voulait-lire",
+    title: "La Générosité récompensée",
+    slug: "generosite-recompensee",
     locale: "fr",
     author: "Patricia",
-    object: "Patience et amour de la lecture",
+    object: "Générosité, courage et protection de la nature",
     imageUrl: "/assets/action-library.jpg",
-    excerpt: "Un conte tendre sur la patience, la curiosité et le pouvoir des livres.",
-    body: "Au bord d'une cour d'école, une petite graine rêvait de devenir un grand arbre sous lequel les enfants viendraient lire.",
-    audioUrl: "",
-    status: "audio_pending",
+    excerpt: "L'histoire de Sawa, jeune fille généreuse du village Tanganyika.",
+    body: "Dans le village Tanganyika, Sawa accueille les visiteurs avec bonté. Quand la colère du dieu de la pluie submerge le village, son courage et sa générosité finissent par sauver tout son peuple.",
+    audioUrl: "/assets/audio/generosite-recompensee.mp3",
+    status: "audio_available",
     publishedAt: null
   }
 ];

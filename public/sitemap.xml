@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://bana-edu.org/</loc><priority>1.0</priority></url>
+  <url><loc>https://bana-edu.org/a-propos</loc><priority>0.8</priority></url>
+  <url><loc>https://bana-edu.org/programmes</loc><priority>0.9</priority></url>
+  <url><loc>https://bana-edu.org/contes</loc><priority>0.9</priority></url>
+  <url><loc>https://bana-edu.org/contes/generosite-recompensee</loc><priority>0.8</priority></url>
+  <url><loc>https://bana-edu.org/impact</loc><priority>0.8</priority></url>
+  <url><loc>https://bana-edu.org/actualites</loc><priority>0.8</priority></url>
+  <url><loc>https://bana-edu.org/actualites/bibliotheque-scolaire-bana</loc><priority>0.7</priority></url>
+  <url><loc>https://bana-edu.org/actualites/concours-plume-ecriture</loc><priority>0.7</priority></url>
+  <url><loc>https://bana-edu.org/actualites/ateliers-eco-artistiques</loc><priority>0.7</priority></url>
+  <url><loc>https://bana-edu.org/galerie</loc><priority>0.7</priority></url>
+  <url><loc>https://bana-edu.org/partenaires</loc><priority>0.7</priority></url>
+  <url><loc>https://bana-edu.org/contact</loc><priority>0.7</priority></url>
+  <url><loc>https://bana-edu.org/soutenir</loc><priority>0.8</priority></url>
+</urlset>

@@ -87,34 +87,33 @@ export const storyWorld = {
 
 export const tales = [
   {
-    slug: "la-petite-graine-qui-voulait-lire",
-    title: "La petite graine qui voulait lire",
-    object: "Patience et amour de la lecture",
+    slug: "generosite-recompensee",
+    title: "La Générosité récompensée",
+    object: "Générosité, courage et protection de la nature",
     image: "/assets/action-library.jpg",
-    status: "Audio bientôt disponible",
-    duration: "6 min",
-    excerpt: "Un conte tendre sur la patience, la curiosité et le pouvoir des livres dans la vie d'un enfant.",
-    text: "Au bord d'une cour d'école, une petite graine rêvait de devenir un grand arbre sous lequel les enfants viendraient lire."
-  },
-  {
-    slug: "le-cahier-aux-ailes-bleues",
-    title: "Le cahier aux ailes bleues",
-    object: "Confiance, écriture et prise de parole",
-    image: "/assets/action-writing.jpg",
-    status: "En écriture",
-    duration: "8 min",
-    excerpt: "Une histoire inspirante pour encourager les jeunes filles à prendre la parole et à croire en leurs idées.",
-    text: "Chaque soir, un cahier bleu ouvrait ses ailes et emportait les mots d'une jeune fille plus loin que sa peur."
-  },
-  {
-    slug: "la-riviere-des-mots",
-    title: "La rivière des mots",
-    object: "Transmission orale et mémoire collective",
-    image: "/assets/action-planet.jpg",
-    status: "Texte en préparation",
-    duration: "45 sec",
-    excerpt: "Un conte poétique pensé pour transmettre la mémoire des mots, entre narration orale et message éducatif.",
-    text: "Dans un village, une rivière gardait les mots anciens et les murmurait aux enfants qui savaient écouter."
+    audioUrl: "/assets/audio/generosite-recompensee.mp3",
+    status: "Audio disponible",
+    duration: "9 min",
+    excerpt: "L'histoire de Sawa, jeune fille généreuse du village Tanganyika, dont la bonté envers les hommes et les animaux finit par sauver tout son peuple.",
+    text: "Dans le village Tanganyika, Sawa accueille les visiteurs avec bonté et partage. Mais lorsque le chef Mwami, aveuglé par l'ambition, provoque la colère du dieu de la pluie, le village est submergé. Au péril de sa vie, Sawa part demander pardon à Mvula. Sa générosité envers Rouka le singe et Kombe-Kombe l'épervier lui revient alors comme une protection. Grâce à son courage, les eaux se retirent et le peuple choisit une nouvelle reine.",
+    body: [
+      "Dans le village Tanganyika, vivaient heureux des paisibles citoyens. On pouvait ressentir l'harmonie et la convivialité qui régnaient dès qu'on posait ses pieds à la grande hutte de Sawa, positionnée à l'entrée du village.",
+      "Sawa était une jeune fille à la peau noir ébène, cheveux soigneusement tressés. Elle portait toujours son sourire éclatant et son regard chaleureux comme sa plus belle robe. Elle était si accueillante que toute personne qui passait par le village Tanganyika gardait souvenir d'elle. Elle aimait se tenir à l'entrée du village, prononçant ce mot de bienvenue à tout visiteur : « Karibu » !",
+      "En effet, Karibu veut dire « Bienvenue chez nous » en Swahili, langue parlée dans toute la région. Ensuite, elle présentait ses petits paniers de fruits, joliment décorés en dégustation, avant de se diriger vers le sentier qui menait à la galerie d'art, où tous les artisans exposaient leur savoir-faire.",
+      "Sawa était également l'amie des animaux. Elle les nourrissait régulièrement, à l'instar de Rouka, le singe et Kombe-Kombe, l'épervier. Elle était si aimable que son aura enchantait toute personne qui croisait sa route.",
+      "Cependant, le succès de Sawa n'était pas toujours vu d'un bon oeil. Mwami le chef du village devenait de plus en plus agacé par les éloges que ses invités faisaient au sujet de Sawa. Il décida alors de faire du village Tanganyika un énorme marché commercial, avec l'intention d'exploiter le talent de Sawa et des artisans à son propre intérêt.",
+      "Aussitôt dit, le Mwami se rendit dans la grotte du village invoquer Mvula, le dieu de la pluie. Il exigea que la pluie tombe dès le soir même, malgré la saison sèche. Mécontent de son attitude, Mvula fit tomber un violent torrent. Le village fut piégé par les eaux, les récoltes inondées et la détresse s'installa.",
+      "Touchée par la souffrance de ses concitoyens, Sawa décida d'aller voir le chef, au péril de sa vie. Elle demanda l'autorisation d'aller présenter des excuses à Mvula, au nom du village, afin d'arrêter les souffrances.",
+      "Le chef accepta, mais lui tendit une amulette prétendument protectrice. En réalité, il préparait déjà un piège. Il ordonna à ses guerriers d'attaquer Sawa sur la route avant qu'elle n'arrive à destination.",
+      "Les guerriers capturèrent Sawa et s'apprêtèrent à l'immoler. Heureusement, Rouka, le singe qu'elle avait nourri depuis son enfance, demanda l'aide des gorilles. Comme une véritable armée, ils descendirent des arbres, assommèrent les guerriers et sauvèrent Sawa.",
+      "Le lendemain, Sawa reprit la route accompagnée de ses nouveaux amis primates. À l'approche du domaine sacré de Mvula, une violente tempête l'emporta dans les airs. Sa chute aurait pu être fatale, mais Kombe-Kombe, l'épervier, la recueillit sous ses ailes.",
+      "Kombe-Kombe lui demanda aussitôt de jeter l'amulette du Mwami, car elle contenait un esprit maléfique. Sawa comprit alors qu'elle avait été trahie.",
+      "Soudain, Sawa se retrouva devant le dieu de la pluie. Tremblante mais courageuse, elle supplia Mvula de pardonner au Mwami et de délivrer le village des eaux.",
+      "Attendri, Mvula lui révéla qu'il était aussi Kombe-Kombe, l'épervier qui venait souvent au village. Il connaissait la générosité de Sawa, car elle l'avait toujours nourri avec bonté. Grâce à elle, tout le village serait sauvé.",
+      "Mvula redevint épervier et ramena Sawa jusqu'au village. Dès qu'elle posa les pieds sur la flotte, les eaux se retirèrent et la terre redevint ferme.",
+      "Les villageois, témoins de ce miracle, acclamèrent Sawa. Reconnaissant son courage, son dévouement et sa bonté, ils décidèrent de détrôner le Mwami et de faire de Sawa la nouvelle reine de Tanganyika.",
+      "Ainsi s'acheva la tyrannie du Mwami. Les habitants retrouvèrent leur tranquillité, vivant en harmonie les uns avec les autres, tout en respectant la nature qui les entoure."
+    ]
   }
 ];
 
@@ -241,7 +240,7 @@ export const supportOptions = [
 export const cmsCollections = [
   { label: "Articles", count: 18, icon: ArrowUpRight },
   { label: "Médias", count: 124, icon: BookOpen },
-  { label: "Contes", count: 3, icon: Clapperboard },
+  { label: "Contes", count: 1, icon: Clapperboard },
   { label: "Partenaires", count: 12, icon: HandHeart },
   { label: "Témoignages", count: 9, icon: Lightbulb },
   { label: "Pages", count: 6, icon: Leaf }

@@ -38,9 +38,7 @@ Endpoints inclus :
 - `/a-propos` : mission, histoire et timeline.
 - `/programmes` : programmes éducatifs.
 - `/contes` : Les Veillées de Patricia.
-- `/contes/la-petite-graine-qui-voulait-lire` : détail conte.
-- `/contes/le-cahier-aux-ailes-bleues` : détail conte.
-- `/contes/la-riviere-des-mots` : détail conte.
+- `/contes/generosite-recompensee` : détail conte avec lecteur MP3.
 - `/impact` : chiffres, témoignages et actions.
 - `/actualites` : blog et actualités CMS-ready.
 - `/actualites/bibliotheque-scolaire-bana` : détail article.

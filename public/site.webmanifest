@@ -1,0 +1,16 @@
+{
+  "name": "BANA Education",
+  "short_name": "BANA",
+  "description": "Lecture, contes et programmes éducatifs pour les jeunes africains.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFDF7",
+  "theme_color": "#1864A3",
+  "icons": [
+    {
+      "src": "/assets/bana-logo.png",
+      "sizes": "270x180",
+      "type": "image/png"
+    }
+  ]
+}

@@ -84,6 +84,196 @@ function routeBase(route: Route): StaticRoute {
   return route as StaticRoute;
 }
 
+const SITE_URL = "https://bana-edu.org";
+
+type SeoData = {
+  title: string;
+  description: string;
+  image?: string;
+  type?: "website" | "article";
+  noindex?: boolean;
+  jsonLd?: Record<string, unknown>;
+};
+
+function absoluteUrl(path: string) {
+  if (path.startsWith("http")) return path;
+  return `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;
+}
+
+function upsertMeta(selector: string, attributes: Record<string, string>) {
+  let element = document.head.querySelector(selector) as HTMLMetaElement | HTMLLinkElement | HTMLScriptElement | null;
+  if (!element) {
+    if (attributes.rel === "canonical") {
+      element = document.createElement("link");
+    } else if (attributes.type === "application/ld+json") {
+      element = document.createElement("script");
+    } else {
+      element = document.createElement("meta");
+    }
+    document.head.appendChild(element);
+  }
+
+  Object.entries(attributes).forEach(([key, value]) => {
+    if (key === "textContent") {
+      element!.textContent = value;
+    } else {
+      element!.setAttribute(key, value);
+    }
+  });
+}
+
+function getSeoData(route: Route, locale: Locale): SeoData {
+  const postSlug = route.startsWith("/actualites/") ? route.replace("/actualites/", "") : "";
+  const post = posts.find((item) => item.slug === postSlug);
+  if (post) {
+    const title = locale === "en" ? post.titleEn : post.title;
+    const description = locale === "en" ? post.excerptEn : post.excerpt;
+    return {
+      title: `${title} | BANA Education`,
+      description,
+      image: post.image,
+      type: "article",
+      jsonLd: {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline: title,
+        description,
+        image: absoluteUrl(post.image),
+        author: { "@type": "Organization", name: "BANA Education" },
+        publisher: {
+          "@type": "EducationalOrganization",
+          name: "BANA Education",
+          logo: { "@type": "ImageObject", url: absoluteUrl("/assets/bana-logo.png") }
+        },
+        mainEntityOfPage: absoluteUrl(route)
+      }
+    };
+  }
+
+  const taleSlug = route.startsWith("/contes/") ? route.replace("/contes/", "") : "";
+  const tale = tales.find((item) => item.slug === taleSlug);
+  if (tale) {
+    return {
+      title: `${tale.title} | Les Veillées de Patricia`,
+      description: tale.excerpt,
+      image: tale.image,
+      type: "article",
+      jsonLd: {
+        "@context": "https://schema.org",
+        "@type": "CreativeWork",
+        name: tale.title,
+        description: tale.excerpt,
+        image: absoluteUrl(tale.image),
+        inLanguage: "fr",
+        author: { "@type": "Person", name: "Patricia" },
+        audio: tale.audioUrl ? { "@type": "AudioObject", contentUrl: absoluteUrl(tale.audioUrl), duration: "PT9M3S" } : undefined
+      }
+    };
+  }
+
+  const pageSeo: Record<StaticRoute, SeoData> = {
+    "/": {
+      title: "BANA Education | Lire, grandir, agir",
+      description: "BANA Education accompagne les jeunes africains par la lecture, les contes, le mentorat, le numérique, l'entrepreneuriat et l'insertion.",
+      image: "/assets/hero-bana.jpg",
+      jsonLd: {
+        "@context": "https://schema.org",
+        "@type": "EducationalOrganization",
+        name: "BANA Education",
+        url: SITE_URL,
+        logo: absoluteUrl("/assets/bana-logo.png"),
+        description: "Organisation éducative africaine engagée pour l'accès à la lecture, la culture et l'impact social."
+      }
+    },
+    "/a-propos": {
+      title: "À propos | BANA Education",
+      description: "Découvrez la mission, l'histoire et les valeurs de BANA Education, association éducative africaine engagée pour l'égalité des chances.",
+      image: "/assets/mission.jpg"
+    },
+    "/programmes": {
+      title: "Programmes éducatifs | BANA Education",
+      description: "Formation, accompagnement, mentorat, numérique, entrepreneuriat et insertion pour les jeunes africains.",
+      image: "/assets/action-library.jpg"
+    },
+    "/contes": {
+      title: "Les Veillées de Patricia | BANA Education",
+      description: "Découvrez les contes écrits et racontés par Patricia, avec texte, image, objet pédagogique et version audio.",
+      image: "/assets/action-library.jpg"
+    },
+    "/impact": {
+      title: "Impact social | BANA Education",
+      description: "Chiffres clés, témoignages et projets qui montrent l'impact de BANA Education auprès des jeunes et des communautés.",
+      image: "/assets/gallery-1.jpg"
+    },
+    "/actualites": {
+      title: "Actualités | BANA Education",
+      description: "Retrouvez les actualités, projets, articles et reportages de BANA Education.",
+      image: "/assets/action-writing.jpg"
+    },
+    "/galerie": {
+      title: "Galerie photo et vidéo | BANA Education",
+      description: "Images et médias des actions éducatives, culturelles et sociales de BANA Education.",
+      image: "/assets/gallery-2.jpg"
+    },
+    "/partenaires": {
+      title: "Partenaires et sponsors | BANA Education",
+      description: "Découvrez les partenaires, sponsors, écoles et relais institutionnels qui soutiennent BANA Education.",
+      image: "/assets/gallery-3.jpg"
+    },
+    "/contact": {
+      title: "Contact | BANA Education",
+      description: "Contactez BANA Education pour un partenariat, du bénévolat, du mécénat ou une demande presse.",
+      image: "/assets/gallery-4.jpg"
+    },
+    "/soutenir": {
+      title: "Nous soutenir | BANA Education",
+      description: "Soutenez BANA Education et contribuez à financer les bibliothèques, ateliers et programmes éducatifs.",
+      image: "/assets/hero-bana.jpg"
+    },
+    "/admin": {
+      title: "Admin | BANA Education",
+      description: "Espace d'administration BANA Education.",
+      image: "/assets/bana-logo.png",
+      noindex: true
+    }
+  };
+
+  return pageSeo[routeBase(route)];
+}
+
+function useSeo(route: Route, locale: Locale) {
+  useEffect(() => {
+    const seo = getSeoData(route, locale);
+    const canonical = absoluteUrl(route);
+    const image = absoluteUrl(seo.image ?? "/assets/hero-bana.jpg");
+
+    document.documentElement.lang = locale;
+    document.title = seo.title;
+    upsertMeta('meta[name="description"]', { name: "description", content: seo.description });
+    upsertMeta('meta[name="robots"]', { name: "robots", content: seo.noindex ? "noindex, nofollow" : "index, follow" });
+    upsertMeta('link[rel="canonical"]', { rel: "canonical", href: canonical });
+    upsertMeta('meta[property="og:title"]', { property: "og:title", content: seo.title });
+    upsertMeta('meta[property="og:description"]', { property: "og:description", content: seo.description });
+    upsertMeta('meta[property="og:image"]', { property: "og:image", content: image });
+    upsertMeta('meta[property="og:url"]', { property: "og:url", content: canonical });
+    upsertMeta('meta[property="og:type"]', { property: "og:type", content: seo.type ?? "website" });
+    upsertMeta('meta[name="twitter:title"]', { name: "twitter:title", content: seo.title });
+    upsertMeta('meta[name="twitter:description"]', { name: "twitter:description", content: seo.description });
+    upsertMeta('meta[name="twitter:image"]', { name: "twitter:image", content: image });
+    upsertMeta('script[data-seo-jsonld="true"]', {
+      type: "application/ld+json",
+      "data-seo-jsonld": "true",
+      textContent: JSON.stringify(seo.jsonLd ?? {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        name: seo.title,
+        description: seo.description,
+        url: canonical
+      })
+    });
+  }, [locale, route]);
+}
+
 function useRoute() {
   const [route, setRoute] = useState<Route>(() => normalizePath(window.location.pathname));
 
@@ -649,10 +839,17 @@ function TaleDetailPage({ slug, navigate }: { slug: string; navigate: (href: str
               <span className="rounded-full bg-logoBlue/10 px-4 py-2 text-logoBlue dark:bg-logoBlue/20 dark:text-white">{tale.duration}</span>
             </div>
             <h2 className="font-display text-4xl text-forest dark:text-white">Texte du conte</h2>
-            <p className="mt-6 text-xl leading-10 text-forest/76 dark:text-white/78">{tale.text}</p>
+            <div className="mt-6 space-y-6 text-lg leading-9 text-forest/76 dark:text-white/78">
+              {(tale.body ?? [tale.text]).map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </div>
             <div className="mt-10 rounded-[1.5rem] bg-cream p-6 dark:bg-white/5">
               <h3 className="font-display text-3xl text-forest dark:text-white">Audio raconté</h3>
-              <p className="mt-3 leading-7 text-forest/65 dark:text-white/70">La version audio racontée par Patricia pourra être ajoutée depuis l'espace admin dès qu'elle sera disponible.</p>
+              <p className="mt-3 leading-7 text-forest/65 dark:text-white/70">Version racontée par IA avec une voix de conteur.</p>
+              <audio className="mt-5 w-full" controls src={tale.audioUrl}>
+                Votre navigateur ne supporte pas la lecture audio.
+              </audio>
             </div>
           </div>
           <aside className="rounded-[2rem] bg-forest p-7 text-white shadow-lift lg:self-start">
@@ -962,7 +1159,7 @@ function AdminSectionPanel({ section, locale }: { section: AdminSection; locale:
         <div className="rounded-[2rem] bg-white p-7 shadow-sm dark:bg-white/5">
           <h2 className="font-display text-4xl text-forest dark:text-white">{t.admin.pipeline}</h2>
           <div className="mt-6 space-y-4">
-            {["Publier le prochain conte audio", "Mettre à jour les chiffres d'impact", "Ajouter les sponsors 2026", "Préparer les images des contes"].map((task, index) => (
+            {["Relire l'audio du conte", "Mettre à jour les chiffres d'impact", "Ajouter les sponsors 2026", "Préparer les prochaines images"].map((task, index) => (
               <div key={task} className="flex items-center justify-between rounded-2xl bg-cream p-4 dark:bg-white/5">
                 <span className="text-sm font-semibold text-forest dark:text-white">{task}</span>
                 <span className={cn("h-3 w-3 rounded-full", ["bg-logoRed", "bg-logoYellow", "bg-logoBlue", "bg-logoGreen"][index])} />
@@ -1196,6 +1393,7 @@ export function App() {
   const [locale, setLocale] = useState<Locale>("fr");
   const { route, navigate } = useRoute();
   const isAdmin = route === "/admin";
+  useSeo(route, locale);
 
   return (
     <div className={cn("min-h-screen scroll-smooth font-sans text-ink antialiased", dark && "dark")}>
